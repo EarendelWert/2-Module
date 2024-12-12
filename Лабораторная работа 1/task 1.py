@@ -5,6 +5,7 @@ import doctest
 class Tree:
     def __init__(self, species: str, height: float, age: int):
         """
+        Создание и подготовка к работе объекта "Дерево".
 
         :param species: Вид дерева
         :param height: Высота дерева в метрах
@@ -31,31 +32,62 @@ class Tree:
         self.age = age
         self.fruits = []  # Список плодов на дереве
 
-    def grow(self, years: int) -> str:
-        """Увеличение высоты дерева за определенное количество лет."""
+    def grow(self, years: int) -> None:
+        """
+        Увеличение высоты дерева за определенное количество лет.
+
+        :param years: Количество лет для роста
+        :raise ValueError: Если количество лет не положительное
+
+        Примеры:
+        >>> tree = Tree("Birch", 10.0, 20)
+        >>> tree.grow(5)
+        >>> tree.height
+        12.5
+        """
         if years <= 0:
-            return "Количество лет должно быть положительным числом."
-        self.height += years * 0.5  # Предположим, что дерево растет на 0.5 метра в год
+            raise ValueError("Количество лет должно быть положительным числом.")
+        self.height += years * 0.5  # Дерево растет на 0.5 метра в год
         self.age += years
-        return f"Дерево {self.species} выросло на {self.height:.2f} метров высоту и сейчас ему {self.age} год(лет)."
 
-    def add_fruit(self, fruit: str) -> str:
-        """Добавить плод на дерево."""
+    def add_fruit(self, fruit: str) -> None:
+        """
+        Добавление плода на дерево.
+
+        :param fruit: Название плода
+
+        Примеры:
+        >>> tree = Tree("Birch", 10.0, 20)
+        >>> tree.add_fruit("Apple")
+        >>> tree.fruits
+        ['Apple']
+        """
         self.fruits.append(fruit)
-        return f"На дереве {self.species} выросло {fruit}."
 
-    def harvest_fruits(self) -> str:
-        """Собрать все плоды с дерева."""
-        if not self.fruits:
-            return "На дереве нет плодов."
-        harvested = ', '.join(self.fruits)
+    def harvest_fruits(self) -> list:
+        """
+        Сбор всех плодов с дерева.
+
+        :return: Список собранных плодов
+
+        Примеры:
+        >>> tree = Tree("Birch", 10.0, 20)
+        >>> tree.add_fruit("Apple")
+        >>> tree.add_fruit("Pear")
+        >>> tree.harvest_fruits()
+        ['Apple', 'Pear']
+        >>> tree.fruits  # После сбора плодов список должен быть пустым
+        []
+        """
+        harvested = self.fruits.copy()
         self.fruits.clear()
-        return f"Собранные фрукты: {harvested}."
+        return harvested
 
 
 class Table:
     def __init__(self, material: str, height: float, width: float):
         """
+        Создание и подготовка к работе объекта "Стол".
 
         :param material: Материал стола
         :param height: Высота стола в сантиметрах
@@ -80,22 +112,38 @@ class Table:
         self.width = width
         self.items = []  # Список предметов на столе
 
-    def place_item(self, item: str) -> str:
-        """Положить предмет на стол."""
-        self.items.append(item)
-        return f"Предмет {item} был помещен на {self.material} стол."
+    def place_item(self, item: str) -> None:
+        """
+        Положить предмет на стол.
 
-    def clear_table(self) -> str:
-        """Очистить стол от всех предметов."""
-        if not self.items:
-            return "Стол пустой."
+        :param item: Название предмета
+
+        Примеры:
+        >>> table = Table("wood", 75.0, 120.0)
+        >>> table.place_item("Book")
+        >>> table.items
+        ['Book']
+        """
+        self.items.append(item)
+
+    def clear_table(self) -> None:
+        """
+        Очистить стол от всех предметов.
+
+        Примеры:
+        >>> table = Table("wood", 75.0, 120.0)
+        >>> table.place_item("Book")
+        >>> table.clear_table()
+        >>> table.items
+        []
+        """
         self.items.clear()
-        return "Стол теперь чистый."
 
 
 class YouTube:
     def __init__(self, name: str, user_count: int):
         """
+        Создание и подготовка к работе объекта "Канал на YouTube".
 
         :param name: Название канала на YouTube
         :param user_count: Количество подписчиков
@@ -116,13 +164,30 @@ class YouTube:
         self.user_count = user_count
 
     def upload_video(self, title: str) -> str:
-        """Загрузить видео на канал."""
+        """
+        Загрузить видео на канал.
+
+        :param title: Название видео
+        :return: Сообщение о загрузке видео
+
+        Примеры:
+        >>> youtube_channel = YouTube("Channel", 1000000)
+        >>> youtube_channel.upload_video("My First Video")
+        'Видео под названием 'My First Video' загружено на Channel.'
+        """
         return f"Видео под названием '{title}' загружено на {self.name}."
 
-    def subscribe(self, subscriber_name: str) -> str:
-        """Подписаться на канал."""
+    def subscribe(self) -> None:
+        """
+        Подписаться на канал. Увеличивает количество подписчиков на 1.
+
+        Примеры:
+        >>> youtube_channel = YouTube("Channel", 1000000)
+        >>> youtube_channel.subscribe()
+        >>> youtube_channel.user_count
+        1000001
+        """
         self.user_count += 1
-        return f"{subscriber_name} подписался на канал {self.name}."
 
 
 if __name__ == "__main__":
