@@ -172,8 +172,8 @@ class YouTube:
 
         Примеры:
         >>> youtube_channel = YouTube("Channel", 1000000)
-        >>> youtube_channel.upload_video("My First Video")
-        'Видео под названием 'My First Video' загружено на Channel.'
+        >>> youtube_channel.upload_video('My First Video')
+        "Видео под названием 'My First Video' загружено на Channel."
         """
         return f"Видео под названием '{title}' загружено на {self.name}."
 
